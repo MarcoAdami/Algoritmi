@@ -13,8 +13,13 @@ void quickSort(vector<int>& arr, int start, int end){
   if(end-start<=1){
     return;
   }
+  srand(time(NULL));
+  int pivot = rand() % (end-start) + start;
+  cout<<arr[pivot]<<endl;
+  swap(arr[start], arr[pivot]);
 
-  int pivot = start;
+  pivot = start;
+
   for(int i=pivot+1; i<end; ++i){
     if(arr[pivot]>arr[i]){
       swap(arr[pivot], arr[i]);
@@ -30,7 +35,7 @@ int main()
 {
     // ifstream cin("input.txt");
     // ofstream cout("output.txt", ios::out);
-    int size=10;
+    int size=5;
     vector<int> arr(size);
 
     

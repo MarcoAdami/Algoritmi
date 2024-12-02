@@ -4,9 +4,19 @@
 #include <vector>  //#include <bits/stdc++.h> // use in terminal std=c++11
 using namespace std;
 
-void BFS(int n, int m) {
+void DFSRec(int nodo1, vector<vector<int> >& adj, vector<bool>& visited) {
+  visited[nodo1] = true;
+
+  for (auto nodo2 : adj[nodo1]) {
+    if (visited[nodo2] == false) {
+      DFSRec(nodo2, adj, visited);
+    }
+  }
+}
+
+void DFS(int n, int m) {
   vector<vector<int> > adj(n);
-  vector<bool> visited(n, 0);
+  vector<bool> visited(n, false);
 
   int nodo1, nodo2;
   for (int i = 0; i < m; ++i) {
@@ -15,26 +25,7 @@ void BFS(int n, int m) {
     // adj[nodo2].push_back(nodo1); //se il grafo non è orientato
   }
 
-  int nodoInizio = 0;
-  deque<int> nodes;
-
-  nodes.push_back(nodoInizio);
-  visited[nodoInizio] = true;
-
-  while (!nodes.empty()) {
-    int temp1 = nodes.front();
-    nodes.pop_front();
-
-    for (int i = 0; i < adj[temp1].size(); ++i) {
-      int temp2 = adj[temp1][i];
-
-      // se il nodo adiacente non stato visitato entra nella queue
-      if (visited[temp2] == false) {
-        visited[temp2] = true;
-        nodes.push_back(temp2);
-      }
-    }
-  }
+  DFSRec(0, adj, visited);
 }
 
 int main() {
@@ -44,7 +35,7 @@ int main() {
   int n, m;  // n = numero di nodi, m = numero di archi
   cin >> n >> m;
 
-  BFS(n, m);
+  DFS(n, m);
 
   return 0;
 }
