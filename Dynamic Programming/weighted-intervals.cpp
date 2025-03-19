@@ -33,6 +33,7 @@ Version-2:
   - preprocessing precedent interval O(n*log(n)) -> using a dicotomic algorithm for each element 
   - use DP to find the result by maxing each result between
     the one before and the prec + the current interval
+  - Reconstruct the set of intervals
   
   Example input:
   11
@@ -50,13 +51,9 @@ Version-2:
 */
 
 #include <algorithm>
-#include <climits>
 #include <cmath>
-#include <deque>
 #include <fstream>
 #include <iostream>
-#include <set>
-#include <stack>
 #include <vector>
 using namespace std;
 
@@ -120,6 +117,7 @@ int main()
     vector<int> prec (n);
     for(int i=0; i<n; ++i){
       int index = binarySearch(endPoints, 0, n, intervals[i][0]);
+      if(index)
       prec[i] = index;
       // cout<< intervals[i][0]<<" "<<prec[i]<<endl;
     }
@@ -131,7 +129,24 @@ int main()
       DP[i] = max(DP[i-1], DP[prec[i]] + intervals[i][2]);
     }
 
-    cout<<DP[n-1]<<endl;
+    cout<<"MaxIntervals: "<<DP[n-1]<<endl;
+
+    // Reconstruct the set of intervals
+    vector<int> setSol;
+    int j=n-1;
+    while(j>0){
+      if(DP[j-1] > intervals[j][2] + DP[prec[j]]){
+        j--;
+      }else{
+        setSol.push_back(j);
+        j = prec[j];
+      }
+    }
+
+
+    for(int i=0; i<setSol.size(); ++i){
+      cout<<"index: "<<setSol[i]<<", weight: "<< intervals[setSol[i]][2]<<endl;
+    }
 
     return 0;
 }
