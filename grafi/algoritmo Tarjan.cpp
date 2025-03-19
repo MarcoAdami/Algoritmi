@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <stack>
-#include <vector>  //#include <bits/stdc++.h> // use in terminal std=c++11
+#include <vector>  //#include <bits/stdc++.h>
 #include <cmath>
 #include <climits>
 using namespace std;

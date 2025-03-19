@@ -1,20 +1,10 @@
 #include <deque>
 #include <fstream>
 #include <iostream>
-#include <vector>  //#include <bits/stdc++.h> // use in terminal std=c++11
+#include <vector>
 using namespace std;
 
-void BFS(int n, int m) {
-  vector<vector<int> > adj(n);
-  vector<bool> visited(n, 0);
-
-  int nodo1, nodo2;
-  for (int i = 0; i < m; ++i) {
-    cin >> nodo1 >> nodo2;
-    adj[nodo1].push_back(nodo2);
-    // adj[nodo2].push_back(nodo1); //se il grafo non è orientato
-  }
-
+void BFS(vector<vector<int> >& adj, vector<bool> visited) {
   int nodoInizio = 0;
   deque<int> nodes;
 
@@ -44,7 +34,17 @@ int main() {
   int n, m;  // n = numero di nodi, m = numero di archi
   cin >> n >> m;
 
-  BFS(n, m);
+  vector<vector<int> > adj(n);
+  vector<bool> visited(n, 0);
+
+  int nodo1, nodo2;
+  for (int i = 0; i < m; ++i) {
+    cin >> nodo1 >> nodo2;
+    adj[nodo1].push_back(nodo2);
+    adj[nodo2].push_back(nodo1);
+  }
+
+  BFS(adj, visited);
 
   return 0;
 }

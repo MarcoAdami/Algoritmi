@@ -1,13 +1,14 @@
 #include <deque>
 #include <fstream>
 #include <iostream>
-#include <vector>  //#include <bits/stdc++.h> // use in terminal std=c++11
+#include <vector>
 using namespace std;
 
 void DFSRec(int nodo1, vector<vector<int> >& adj, vector<bool>& visited) {
   visited[nodo1] = true;
 
-  for (auto nodo2 : adj[nodo1]) {
+  for (int i = 0; i < adj[nodo1].size(); ++i) {
+    int nodo2 = adj[nodo1][i];
     if (visited[nodo2] == false) {
       DFSRec(nodo2, adj, visited);
     }
